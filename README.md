@@ -7,7 +7,16 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 
 ## Available API Call:
 
-  > POST `/api/thermostat_reads` stores temperature, humidity and battery charge, attributes thermostat_read[temperature], thermostat_read[humidity], thermostat_read[battery_charge] and HOUSEHOLD_TOKEN in the request header.
+  > POST `/api/thermostat_reads` stores temperature, humidity and battery charge, attributes thermostat_read[temperature], thermostat_read[humidity], thermostat_read[battery_charge], It requires HOUSEHOLD_TOKEN in the request header
+
+  > GET `/api/thermostat_reads/:number` returns the thermostat data using the reading_id obtained from POST Reading, It requires HOUSEHOLD_TOKEN in the request header.
+
+  > GET '/api/thermostats/:id/stats' returns the average, minimum and maximum by temperature, humidity and battery_charge
+
+
+## Reads dummy data :
+
+  > run `rails thermostat_reads:dummy_data`
 
 
 ## Project Details:

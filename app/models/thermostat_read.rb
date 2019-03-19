@@ -7,7 +7,6 @@ class ThermostatRead < ApplicationRecord
 
   def as_json(options={})
     {
-      id: id,
       number: number,
       household_token: household_token,
       temperature: temperature,

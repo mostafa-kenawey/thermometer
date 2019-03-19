@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_03_18_160406) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "last_read_number", default: 0
+    t.index ["household_token"], name: "index_thermostats_on_household_token"
   end
 
 end

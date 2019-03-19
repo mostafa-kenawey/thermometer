@@ -14,5 +14,8 @@ module JsonRenders
     render :json=> {:success => false,  :error => "unauthorized"}, :status=>:unauthorized
   end
 
+  def render_not_found
+    render :json => {:success => false}, status: :not_found
+  end
 
 end

@@ -77,8 +77,63 @@ RSpec.describe ThermostatReadsController, type: :controller do
           post(:create, params: valid_params)
         }.to have_enqueued_job
       end
+    end
+  end
 
+  describe "GET #show" do
+    let(:thermostat) { create(:thermostat) }
+    let(:thermostat_read) { create(:thermostat_read, thermostat: thermostat) }
+    let(:valid_params) do
+      {
+        id: thermostat_read.number
+      }
     end
 
+    let(:invalid_params) do
+      {
+        id: 999
+      }
+    end
+
+    context "with valid parameters" do
+      before do
+        ActiveJob::Base.queue_adapter = :test
+        @request.env['HTTP_HOUSEHOLD_TOKEN'] = thermostat.household_token
+        get :show, params: valid_params
+      end
+
+      it "returns http success" do
+        expect(response).to have_http_status(:created)
+      end
+
+      it "JSON body response contains expected attributes" do
+        json_response = JSON.parse(response.body)
+        expect(json_response["thermostat_read"].keys).to match_array(["battery_charge", "humidity", "number", "temperature", "household_token"])
+      end
+
+      it "JSON body response contains expected values" do
+        thermostat.reload
+        json_response = JSON.parse(response.body)
+        expect(json_response["thermostat_read"]).to include({
+          "battery_charge" => thermostat_read.battery_charge,
+          "temperature" => thermostat_read.temperature,
+          "humidity" => thermostat_read.humidity,
+          "household_token" => thermostat_read.household_token,
+          "number" => thermostat_read.number
+        })
+      end
+    end
+
+    context "with invalid parameters" do
+      before do
+        ActiveJob::Base.queue_adapter = :test
+        @request.env['HTTP_HOUSEHOLD_TOKEN'] = thermostat.household_token
+        get :show, params: invalid_params
+      end
+
+      it "returns http success" do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end
