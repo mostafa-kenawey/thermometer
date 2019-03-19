@@ -6,11 +6,15 @@ RSpec.describe Thermostat, type: :model do
   context 'model' do
     let(:model) { Thermostat.new }
 
+    it { should validate_presence_of(:household_token) }
+
+    it { should have_many(:thermostat_reads).dependent(:destroy) }
+
     it 'allows nil values for location' do
       expect(model).to allow_value(nil).for(:location)
     end
 
-    it 'doesnt allow nil values for location' do
+    it 'doesnt allow nil values for household_token' do
       expect(model).not_to allow_value(nil).for(:household_token)
     end
   end

@@ -5,8 +5,6 @@ class ThermostatRead < ApplicationRecord
 
   belongs_to :thermostat
 
-  delegate :household_token, to: :thermostat, allow_nil: true
-
   def as_json(options={})
     {
       id: id,

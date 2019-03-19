@@ -7,6 +7,8 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 
 ## Available API Call:
 
+  > POST `/api/thermostat_reads` stores temperature, humidity and battery charge, attributes thermostat_read[temperature], thermostat_read[humidity], thermostat_read[battery_charge] and HOUSEHOLD_TOKEN in the request header.
+
 
 ## Project Details:
 
@@ -26,6 +28,8 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 
   > copy `config/database.yml` from `config/database.yml.example`
 
+  > copy `config/sidekiq.yml` from `config/sidekiq.yml.example`
+
 * Database creation
 
   > run `rails db:create`
@@ -44,13 +48,19 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 
   > copy `config/database.yml` from `config/database.yml.example`
 
+  > copy `config/sidekiq.yml` from `config/sidekiq.yml.example`
+
 ## ToDo:
 
   > Add API documentation tool
 
   > Add Authentication to the API
 
+  > Use API versioning
+
   > Include more test coverage
+
+  > Add test code coverage tool : simplecov
 
 
 ## recommendations:

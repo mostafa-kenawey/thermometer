@@ -5,6 +5,8 @@ module SetNumber
     validates :number, presence: true, if: :thermostat_id?
     validates :number, number_uniqueness: true, on: :create
     before_validation :set_number, on: :create, if: :thermostat_id?
+
+    delegate :household_token, :last_read_number, :increment_last_read_number!, to: :thermostat, allow_nil: true
   end
 
   #######
@@ -12,11 +14,7 @@ module SetNumber
   #######
 
   def set_number
-    self.number ||= next_number
-  end
-
-  def next_number
-    ThermostatRead.joins(:thermostat).where("thermostats.household_token" => self.household_token).order("number DESC").limit(1).first.try(:number).to_i+1
+    self.number ||= increment_last_read_number!
   end
 
 end

@@ -6,7 +6,11 @@ RSpec.describe ThermostatRead, type: :model do
   context 'model' do
     let(:model) { ThermostatRead.new }
 
+    it { should belong_to(:thermostat) }
+
     [:temperature, :humidity, :battery_charge].each do |attr|
+      it { should validate_presence_of(attr) }
+
       context 'for #{attr}' do
         it 'doesnt allow nil values' do
           expect(model).not_to allow_value(nil).for(attr)
@@ -28,14 +32,29 @@ RSpec.describe ThermostatRead, type: :model do
       expect(thermostat_read.household_token).not_to be_nil
     end
 
+    context 'after save' do
+      let(:thermostat) { create(:thermostat) }
+      let(:thermostat_read_2) { build(:thermostat_read, thermostat: thermostat) }
+
+      it "thermostat's last_read_number should be incremented if no number was assigned" do
+        expect{thermostat_read_2.save}.to change{thermostat.last_read_number}.by(1)
+      end
+
+      it "thermostat's last_read_number should not be incremented if number was assigned" do
+        thermostat_read_2.number = "99"
+        expect{thermostat_read_2.save}.to change{thermostat.last_read_number}.by(0)
+      end
+    end
+
     context 'with number' do
+      let(:thermostat_read_2) { create(:thermostat_read) }
+
       it "is generated before validate" do
         thermostat_read.valid?
         expect(thermostat_read.number).not_to be_nil
       end
 
       it "should be unique" do
-        thermostat_read_2 = create(:thermostat_read)
         thermostat_read.number = thermostat_read_2.number
         thermostat_read.thermostat = thermostat_read_2.thermostat
 
