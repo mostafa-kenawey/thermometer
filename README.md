@@ -1,24 +1,53 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Thermostat
 
-Things you may want to cover:
+API for storing readings from IoT thermostats and reporting a simple statistics on them.
 
-* Ruby version
 
-* System dependencies
+## Available API Call:
+
+
+## Project Details:
+
+* Environment
+
+  > API Rails Project
+
+  > Ruby 2.6.1
+
+  > Rails 5.2.2
+
+  > PostgreSQL
+
+  > RSpec
 
 * Configuration
 
+  > copy `config/database.yml` from `config/database.yml.example`
+
 * Database creation
 
-* Database initialization
+  > run `bundle exec rake db:create`
 
-* How to run the test suite
+  > run `bundle exec rake db:migrate`
 
-* Services (job queues, cache servers, search engines, etc.)
+  > run `bundle exec rake db:seed`
 
-* Deployment instructions
 
-* ...
+## Production Deploy and Recommendations:
+
+  > copy `config/database.yml` from `config/database.yml.example`
+
+## ToDo:
+
+  > Add API documentation tool
+
+  > Add Authentication to the API
+
+  > Include more test coverage
+
+
+## recommendations:
+
+  > Create a new separated model for 'household'
