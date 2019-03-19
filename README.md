@@ -56,3 +56,5 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 ## recommendations:
 
   > Create a new separated model for 'household'
+
+  > Use `github.com/derrickreimer/sequenced` for Generate scoped sequential numbers

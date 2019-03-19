@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_15_154235) do
+ActiveRecord::Schema.define(version: 2019_03_15_173340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "thermostat_reads", force: :cascade do |t|
+    t.float "temperature"
+    t.float "humidity"
+    t.float "battery_charge"
+    t.integer "number"
+    t.integer "thermostat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_thermostat_reads_on_number"
+    t.index ["thermostat_id"], name: "index_thermostat_reads_on_thermostat_id"
+  end
 
   create_table "thermostats", force: :cascade do |t|
     t.string "household_token"
