@@ -28,12 +28,17 @@ API for storing readings from IoT thermostats and reporting a simple statistics 
 
 * Database creation
 
-  > run `bundle exec rake db:create`
+  > run `rails db:create`
 
-  > run `bundle exec rake db:migrate`
+  > run `rails db:migrate`
 
-  > run `bundle exec rake db:seed`
+  > run `rails db:seed`
 
+## Tests
+
+  > database migration `rails db:migrate RAILS_ENV=test`
+
+  > run test `rspec`
 
 ## Production Deploy and Recommendations:
 
